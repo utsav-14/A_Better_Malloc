@@ -101,7 +101,7 @@ void *Mem_Alloc(int size)
             f = 1;
             break;
         }
-        // --temp;
+        --temp;
     }
     if (!f)
     {
