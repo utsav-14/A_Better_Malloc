@@ -1,0 +1,56 @@
+#include <iostream>
+#include "mem.h"
+using namespace std;
+
+int main()
+{
+    int heap_size;
+    //cout << "pointer size: " << sizeof(head) << " sizeof int: " << sizeof(int) << endl;
+    printf("Enter heap size: ");
+    scanf("%d", &heap_size);
+    remove("output.txt");
+    freopen("output.txt", "a", stdout);
+    if (Mem_Init(heap_size) < 0)
+    {
+        printf("Error while allocating heap.\n");
+        return 1;
+    }
+    else
+    {
+        cout << "Success\n";
+        // int i = 0;
+        // void *p[1500];
+        //## Testing.
+        // while (i < 1500)
+        // {
+        //     cout << "Alloc CALL::" << i + 1 << endl;
+        //     p[i] = Mem_Alloc(6);
+        //     display();
+        //     i++;
+        // }
+        int *p = (int *)Mem_Alloc(sizeof(int) * 30);
+        char* p1 = (char *)Mem_Alloc(sizeof(char) * 50);
+        float *p2 = (float *)Mem_Alloc(sizeof(float) * 30);
+        display();
+        Mem_Free(p+10, PARTIAL);
+        display();
+        Mem_Free(p1+40, FULL);
+        display();
+        //   int j=0;
+        //    while(j<1500){
+        //     cout<<"Free CALL::"<<i+1<<endl;
+        //     Mem_Free(p[j],FULL);
+        //     display();
+        //     j++;
+        //   }
+        // Mem_Clear();
+        // cout<<"After Clearing"<<endl;
+        cout << Mem_IsValid(p + 11) << endl;
+        cout << Mem_GetSize(p) << endl;
+        cout << Mem_GetSize(p2) << endl;
+        cout << Mem_GetSize(p2 + 31) << endl;
+        Mem_Clear();
+        display();
+    }
+    return 0;
+}
